@@ -179,7 +179,7 @@ class Protocol(object):
 
         amqp_channel.basic_ack(method_frame.delivery_tag)
         for tag in consumer_tags:
-            amqp_channel.basic_cancel(consumer_tag=tag)
+            amqp_channel.basic_cancel(consumer_tag=tag, nowait=True)
         channel = consumer_tags[method_frame.consumer_tag]
         message = self.deserialize(body)
         self.resolve.set_result((channel, message))
